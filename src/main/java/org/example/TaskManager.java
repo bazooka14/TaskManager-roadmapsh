@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class TaskManager {
@@ -18,10 +19,11 @@ public class TaskManager {
     public TaskManager() {
         file = new File("tasks.json");
         mapper = new ObjectMapper().registerModule(new JavaTimeModule());
+
         if (file.exists() && file.length() > 0) {
             try {
                 tasks = new ArrayList<>(Arrays.asList(mapper.readValue(file, Task[].class)));
-                tasks.sort(null);
+                Collections.sort(tasks);
                 Task.setLastId(tasks.get(tasks.size() - 1).getId());
             } catch (IOException e) {
                 System.out.println("Filed to read tasks from file");
@@ -44,5 +46,24 @@ public class TaskManager {
 
     public List<Task> getAllTasks() {
         return tasks;
+    }
+
+    public Task getTaskById(int id) {
+        for (Task task: tasks) {
+            if (task.getId() == id) {
+                return task;
+            }
+        }
+        return null;
+    }
+
+    public boolean deleteTaskById(int id) {
+        for (Task task: tasks) {
+            if (task.getId() == id) {
+                tasks.remove(task);
+                return true;
+            }
+        }
+        return false;
     }
 }

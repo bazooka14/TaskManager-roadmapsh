@@ -10,11 +10,8 @@ import java.util.List;
 public class TaskTracker {
     public static void main( String[] args ) throws IOException {
         TaskManager taskManager = new TaskManager();
-        Task task = new Task("Купить хлеб в магазине");
-        Task task2 = new Task("Купить хлеб в магазине2");
+        TaskPrinter taskPrinter = new TaskPrinter(taskManager);
 
-        taskManager.createTask(task);
-        taskManager.createTask(task2);
-        System.out.println();
+        taskPrinter.printAllTasks();
     }
 }

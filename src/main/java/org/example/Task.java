@@ -54,12 +54,5 @@ public class Task implements Comparable<Task>{
     public int compareTo(Task o) {
         return Integer.compare(id, o.id);
     }
-
-    @Override
-    public String toString() {
-        return id + " " + description + " " + status + " " + createdAt + " " + updatedAt;
-    }
-
-
 }
 
