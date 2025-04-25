@@ -1,7 +1,6 @@
 package org.example;
 
-import java.io.IOException;
-import java.util.List;
+import java.util.Scanner;
 
 /**
  * Hello world!
@@ -11,7 +10,14 @@ public class TaskTracker {
     public static void main( String[] args ) {
         TaskManager taskManager = new TaskManager();
         TaskPrinter taskPrinter = new TaskPrinter(taskManager);
+        CommandLineHandler commandLineHandler = new CommandLineHandler(taskManager, taskPrinter);
+        Scanner sc = new Scanner(System.in);
 
-        taskPrinter.printAllTasks();
+        while (true) {
+            String userInput = sc.nextLine();
+            commandLineHandler.processCommand(userInput);
+        }
     }
+
+
 }

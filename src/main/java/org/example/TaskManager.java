@@ -5,10 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class TaskManager {
     private final File file;
@@ -34,8 +31,9 @@ public class TaskManager {
     }
 
 
-    public void createTask(Task task) {
+    public void createTask(String taskDescriptiom) {
         try {
+            Task task = new Task(taskDescriptiom);
             tasks.add(task);
             mapper.writerWithDefaultPrettyPrinter().writeValue(file, tasks);
         }
@@ -48,32 +46,35 @@ public class TaskManager {
         return tasks;
     }
 
-    public Task getTaskById(int id) {
-        for (Task task: tasks) {
+    public void updateTaskDescription(int id, String newDescription) {
+        for (Task task : tasks) {
             if (task.getId() == id) {
-                return task;
+                task.setDescription(newDescription);
             }
         }
-        return null;
     }
 
-    public boolean updateTaskStatusById(int id, Task.TaskStatus taskStatus) {
+    public void updateTaskStatusById(int id, Task.TaskStatus taskStatus) {
         for (Task task : tasks) {
             if (task.getId() == id) {
                 task.setStatus(taskStatus);
-                return true;
             }
         }
-        return false;
     }
 
-    public boolean deleteTaskById(int id) {
-        for (Task task: tasks) {
+    public void deleteTaskById(int id) {
+        Iterator<Task> iterator = tasks.iterator();
+        while (iterator.hasNext()) {
+            Task task = iterator.next();
             if (task.getId() == id) {
-                tasks.remove(task);
-                return true;
+                try {
+                    tasks.remove(task);
+                    mapper.writerWithDefaultPrettyPrinter().writeValue(file, tasks);
+                    break;
+                } catch (IOException e) {
+                    System.out.println("Filed to delete task");
+                }
             }
         }
-        return false;
     }
 }

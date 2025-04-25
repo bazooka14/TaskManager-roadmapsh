@@ -11,11 +11,6 @@ public class TaskPrinter {
         formatter = DateTimeFormatter.ofPattern("dd-MM-yy HH:mm");
     }
 
-    public void printTaskById(int id) {
-        printHeader();
-        Task task = taskManager.getTaskById(id);
-        printTask(task);
-    }
 
     public void printAllTasks() {
         printHeader();
@@ -33,10 +28,10 @@ public class TaskPrinter {
         }
     }
 
-    public void printTasksThatAreNotDone() {
+    public void printTasksThatAreTodo() {
         printHeader();
         for (Task task: taskManager.getAllTasks()) {
-            if (task.getStatus() != Task.TaskStatus.DONE) {
+            if (task.getStatus() == Task.TaskStatus.TODO) {
                 printTask(task);
             }
         }
