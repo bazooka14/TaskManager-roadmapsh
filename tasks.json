@@ -1,7 +1,7 @@
 [ {
-  "description" : "New task",
+  "description" : "fix TaskTracker 2",
   "id" : 1,
-  "status" : "IN_PROGRESS",
+  "status" : "DONE",
   "createdAt" : [ 2025, 4, 25, 14, 8, 48, 740314800 ],
   "updatedAt" : [ 2025, 4, 25, 14, 8, 48, 740314800 ]
 } ]

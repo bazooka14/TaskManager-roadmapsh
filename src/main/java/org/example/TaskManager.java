@@ -54,10 +54,10 @@ public class TaskManager {
                     task.setDescription(newDescription);
                     mapper.writerWithDefaultPrettyPrinter().writeValue(file, tasks);
                     System.out.println("Task updated successfully");
-                    break;
                 } catch (IOException e) {
                     System.out.println("Filed to update task");
                 }
+                return;
             }
         }
         System.out.println("No such task");
@@ -70,10 +70,10 @@ public class TaskManager {
                     task.setStatus(taskStatus);
                     mapper.writerWithDefaultPrettyPrinter().writeValue(file, tasks);
                     System.out.println("Task status updated successfully");
-                    break;
                 } catch (IOException e) {
                     System.out.println("Filed to update task status");
                 }
+                return;
             }
         }
         System.out.println("No such task");
@@ -88,10 +88,10 @@ public class TaskManager {
                     tasks.remove(task);
                     mapper.writerWithDefaultPrettyPrinter().writeValue(file, tasks);
                     System.out.println("Task deleted successfully");
-                    break;
                 } catch (IOException e) {
                     System.out.println("Filed to delete task");
                 }
+                return;
             }
         }
         System.out.println("No such task");
