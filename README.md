@@ -1,5 +1,3 @@
-Вот содержимое `README.md` в виде одного готового файла:
-
 ```markdown
 # Task CLI Tracker
 
