@@ -14,6 +14,7 @@ public class TaskTracker {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
+            System.out.print("task-cli ");
             String userInput = sc.nextLine();
             commandLineHandler.processCommand(userInput);
         }

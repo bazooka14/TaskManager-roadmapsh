@@ -36,6 +36,7 @@ public class TaskManager {
             Task task = new Task(taskDescriptiom);
             tasks.add(task);
             mapper.writerWithDefaultPrettyPrinter().writeValue(file, tasks);
+            System.out.printf("Task added successfully (ID: %d)\n", task.getId());
         }
         catch (IOException e) {
             System.out.println("Error creating task: " + e.getMessage());
@@ -49,17 +50,33 @@ public class TaskManager {
     public void updateTaskDescription(int id, String newDescription) {
         for (Task task : tasks) {
             if (task.getId() == id) {
-                task.setDescription(newDescription);
+                try {
+                    task.setDescription(newDescription);
+                    mapper.writerWithDefaultPrettyPrinter().writeValue(file, tasks);
+                    System.out.println("Task updated successfully");
+                    break;
+                } catch (IOException e) {
+                    System.out.println("Filed to update task");
+                }
             }
         }
+        System.out.println("No such task");
     }
 
     public void updateTaskStatusById(int id, Task.TaskStatus taskStatus) {
         for (Task task : tasks) {
             if (task.getId() == id) {
-                task.setStatus(taskStatus);
+                try {
+                    task.setStatus(taskStatus);
+                    mapper.writerWithDefaultPrettyPrinter().writeValue(file, tasks);
+                    System.out.println("Task status updated successfully");
+                    break;
+                } catch (IOException e) {
+                    System.out.println("Filed to update task status");
+                }
             }
         }
+        System.out.println("No such task");
     }
 
     public void deleteTaskById(int id) {
@@ -70,11 +87,13 @@ public class TaskManager {
                 try {
                     tasks.remove(task);
                     mapper.writerWithDefaultPrettyPrinter().writeValue(file, tasks);
+                    System.out.println("Task deleted successfully");
                     break;
                 } catch (IOException e) {
                     System.out.println("Filed to delete task");
                 }
             }
         }
+        System.out.println("No such task");
     }
 }
