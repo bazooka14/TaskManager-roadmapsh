@@ -57,6 +57,16 @@ public class TaskManager {
         return null;
     }
 
+    public boolean updateTaskStatusById(int id, Task.TaskStatus taskStatus) {
+        for (Task task : tasks) {
+            if (task.getId() == id) {
+                task.setStatus(taskStatus);
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean deleteTaskById(int id) {
         for (Task task: tasks) {
             if (task.getId() == id) {

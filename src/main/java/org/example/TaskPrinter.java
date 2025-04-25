@@ -12,19 +12,42 @@ public class TaskPrinter {
     }
 
     public void printTaskById(int id) {
-        System.out.printf("%2s | %-30s | %-11s | %-14s | %-14s\n",
-                "ID", "Description", "Status", "Updated at", "Created at");
-        System.out.println("-----------------------------------------------------------------------------------");
+        printHeader();
         Task task = taskManager.getTaskById(id);
         printTask(task);
     }
 
     public void printAllTasks() {
-        System.out.printf("%2s | %-30s | %-11s | %-14s | %-14s\n",
-                "ID", "Description", "Status", "Updated at", "Created at");
-        System.out.println("-----------------------------------------------------------------------------------");
+        printHeader();
         for (Task task: taskManager.getAllTasks()) {
             printTask(task);
+        }
+    }
+
+    public void printTasksThatAreDone() {
+        printHeader();
+        for (Task task: taskManager.getAllTasks()) {
+            if (task.getStatus() == Task.TaskStatus.DONE) {
+                printTask(task);
+            }
+        }
+    }
+
+    public void printTasksThatAreNotDone() {
+        printHeader();
+        for (Task task: taskManager.getAllTasks()) {
+            if (task.getStatus() != Task.TaskStatus.DONE) {
+                printTask(task);
+            }
+        }
+    }
+
+    public void printTasksThatAreInProgress() {
+        printHeader();
+        for (Task task: taskManager.getAllTasks()) {
+            if (task.getStatus() == Task.TaskStatus.IN_PROGRESS) {
+                printTask(task);
+            }
         }
     }
 
@@ -33,5 +56,11 @@ public class TaskPrinter {
         String formatedCreatedAt = formatter.format(task.getCreatedAt());
         System.out.printf("%-2d | %-30s | %-11s | %-14s | %-14s\n",
                 task.getId(), task.getDescription(), task.getStatus(), formatedUpdatedAt, formatedCreatedAt);
+    }
+
+    private void printHeader() {
+        System.out.printf("%2s | %-30s | %-11s | %-14s | %-14s\n",
+                "ID", "Description", "Status", "Updated at", "Created at");
+        System.out.println("-----------------------------------------------------------------------------------");
     }
 }

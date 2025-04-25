@@ -8,7 +8,7 @@ import java.util.List;
  *
  */
 public class TaskTracker {
-    public static void main( String[] args ) throws IOException {
+    public static void main( String[] args ) {
         TaskManager taskManager = new TaskManager();
         TaskPrinter taskPrinter = new TaskPrinter(taskManager);
 
