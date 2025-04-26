@@ -54,7 +54,6 @@ task-cli list in-progress
 task-cli list done
 ```
 
-Вот обновленная версия `README.md`, которая включает инструкции по запуску проекта из исходников, с учетом того, что это обычный Maven проект с зависимостями:
 
 ```markdown
 # Task CLI Tracker
