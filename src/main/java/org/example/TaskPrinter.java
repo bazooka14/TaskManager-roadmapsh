@@ -1,27 +1,29 @@
 package org.example;
 
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class TaskPrinter {
-    TaskManager taskManager;
-    DateTimeFormatter formatter;
+    private DateTimeFormatter formatter;
+    private List<Task> tasks;
 
-    public TaskPrinter(TaskManager taskManager) {
-        this.taskManager = taskManager;
+
+    public TaskPrinter(List<Task> tasks) {
         formatter = DateTimeFormatter.ofPattern("dd-MM-yy HH:mm");
+        this.tasks = tasks;
     }
 
 
     public void printAllTasks() {
         printHeader();
-        for (Task task: taskManager.getAllTasks()) {
+        for (Task task: getAllTasks()) {
             printTask(task);
         }
     }
 
     public void printTasksThatAreDone() {
         printHeader();
-        for (Task task: taskManager.getAllTasks()) {
+        for (Task task: getAllTasks()) {
             if (task.getStatus() == Task.TaskStatus.DONE) {
                 printTask(task);
             }
@@ -30,7 +32,7 @@ public class TaskPrinter {
 
     public void printTasksThatAreTodo() {
         printHeader();
-        for (Task task: taskManager.getAllTasks()) {
+        for (Task task: getAllTasks()) {
             if (task.getStatus() == Task.TaskStatus.TODO) {
                 printTask(task);
             }
@@ -39,11 +41,15 @@ public class TaskPrinter {
 
     public void printTasksThatAreInProgress() {
         printHeader();
-        for (Task task: taskManager.getAllTasks()) {
+        for (Task task: getAllTasks()) {
             if (task.getStatus() == Task.TaskStatus.IN_PROGRESS) {
                 printTask(task);
             }
         }
+    }
+
+    private List<Task> getAllTasks() {
+        return tasks;
     }
 
     private void printTask(Task task) {

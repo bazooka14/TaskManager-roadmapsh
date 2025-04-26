@@ -1,6 +1,5 @@
 package org.example;
-
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Hello world!
@@ -8,8 +7,9 @@ import java.util.Scanner;
  */
 public class TaskTracker {
     public static void main( String[] args ) {
-        TaskManager taskManager = new TaskManager();
-        TaskPrinter taskPrinter = new TaskPrinter(taskManager);
+        TaskLoader taskLoader = new TaskLoader("tasks.json");
+        TaskManager taskManager = new TaskManager(taskLoader.getFileWithTasks(), taskLoader.getTasks());
+        TaskPrinter taskPrinter = new TaskPrinter(taskLoader.getTasks());
         CommandLineHandler commandLineHandler = new CommandLineHandler(taskManager, taskPrinter);
         Scanner sc = new Scanner(System.in);
 
@@ -19,6 +19,5 @@ public class TaskTracker {
             commandLineHandler.processCommand(userInput);
         }
     }
-
 
 }

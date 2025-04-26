@@ -8,26 +8,15 @@ import java.io.IOException;
 import java.util.*;
 
 public class TaskManager {
-    private final File file;
     private final ObjectMapper mapper;
+    private File fileWithTasks;
     private List<Task> tasks;
 
 
-    public TaskManager() {
-        file = new File("tasks.json");
+    public TaskManager(File fileWithTasks, List<Task> tasks) {
         mapper = new ObjectMapper().registerModule(new JavaTimeModule());
-
-        if (file.exists() && file.length() > 0) {
-            try {
-                tasks = new ArrayList<>(Arrays.asList(mapper.readValue(file, Task[].class)));
-                Collections.sort(tasks);
-                Task.setLastId(tasks.get(tasks.size() - 1).getId());
-            } catch (IOException e) {
-                System.out.println("Filed to read tasks from file");
-            }
-        } else {
-            tasks = new ArrayList<>();
-        }
+        this.fileWithTasks = fileWithTasks;
+        this.tasks = tasks;
     }
 
 
@@ -35,7 +24,7 @@ public class TaskManager {
         try {
             Task task = new Task(taskDescriptiom);
             tasks.add(task);
-            mapper.writerWithDefaultPrettyPrinter().writeValue(file, tasks);
+            mapper.writerWithDefaultPrettyPrinter().writeValue(fileWithTasks, tasks);
             System.out.printf("Task added successfully (ID: %d)\n", task.getId());
         }
         catch (IOException e) {
@@ -43,16 +32,12 @@ public class TaskManager {
         }
     }
 
-    public List<Task> getAllTasks() {
-        return tasks;
-    }
-
     public void updateTaskDescription(int id, String newDescription) {
         for (Task task : tasks) {
             if (task.getId() == id) {
                 try {
                     task.setDescription(newDescription);
-                    mapper.writerWithDefaultPrettyPrinter().writeValue(file, tasks);
+                    mapper.writerWithDefaultPrettyPrinter().writeValue(fileWithTasks, tasks);
                     System.out.println("Task updated successfully");
                 } catch (IOException e) {
                     System.out.println("Filed to update task");
@@ -68,7 +53,7 @@ public class TaskManager {
             if (task.getId() == id) {
                 try {
                     task.setStatus(taskStatus);
-                    mapper.writerWithDefaultPrettyPrinter().writeValue(file, tasks);
+                    mapper.writerWithDefaultPrettyPrinter().writeValue(fileWithTasks, tasks);
                     System.out.println("Task status updated successfully");
                 } catch (IOException e) {
                     System.out.println("Filed to update task status");
@@ -86,7 +71,7 @@ public class TaskManager {
             if (task.getId() == id) {
                 try {
                     tasks.remove(task);
-                    mapper.writerWithDefaultPrettyPrinter().writeValue(file, tasks);
+                    mapper.writerWithDefaultPrettyPrinter().writeValue(fileWithTasks, tasks);
                     System.out.println("Task deleted successfully");
                 } catch (IOException e) {
                     System.out.println("Filed to delete task");
