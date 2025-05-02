@@ -14,12 +14,12 @@ public class CommandLineHandler {
     private final Pattern patternListTodo = Pattern.compile("^list\\s+todo$");
     private final Pattern patternListInProgress = Pattern.compile("^list\\s+in-progress$");
 
-    TaskManager taskManager;
-    TaskPrinter taskPrinter;
+    TaskService taskService;
+    TaskOutput taskOutput;
 
-    public CommandLineHandler(TaskManager taskManager, TaskPrinter taskPrinter) {
-        this.taskManager = taskManager;
-        this.taskPrinter = taskPrinter;
+    public CommandLineHandler(TaskService taskService, TaskOutput taskOutput) {
+        this.taskService = taskService;
+        this.taskOutput = taskOutput;
     }
 
     public void processCommand(String input) {
@@ -28,52 +28,52 @@ public class CommandLineHandler {
         matcher = patternAdd.matcher(input);
         if (matcher.matches()) {
             String taskDescription = matcher.group(1);
-            taskManager.createTask(taskDescription);
+            taskService.createTask(taskDescription);
         }
 
         matcher = patternUpdate.matcher(input);
         if (matcher.matches()) {
             int taskId = Integer.parseInt(matcher.group(1));
             String newDescription = matcher.group(2);
-            taskManager.updateTaskDescription(taskId, newDescription);
+            taskService.updateTaskDescription(taskId, newDescription);
         }
 
         matcher = patternDelete.matcher(input);
         if (matcher.matches()) {
             int taskId = Integer.parseInt(matcher.group(1));
-            taskManager.deleteTaskById(taskId);
+            taskService.deleteTaskById(taskId);
         }
 
         matcher = patternMarkInProgress.matcher(input);
         if (matcher.matches()) {
             int taskId = Integer.parseInt(matcher.group(1));
-            taskManager.updateTaskStatusById(taskId, Task.TaskStatus.IN_PROGRESS);
+            taskService.updateTaskStatusById(taskId, Task.TaskStatus.IN_PROGRESS);
         }
 
         matcher = patternMarkDone.matcher(input);
         if (matcher.matches()) {
             int taskId = Integer.parseInt(matcher.group(1));
-            taskManager.updateTaskStatusById(taskId, Task.TaskStatus.DONE);
+            taskService.updateTaskStatusById(taskId, Task.TaskStatus.DONE);
         }
 
         matcher = patternListAll.matcher(input);
         if (matcher.matches()) {
-            taskPrinter.printAllTasks();
+            taskOutput.printAllTasks();
         }
 
         matcher = patternListDone.matcher(input);
         if (matcher.matches()) {
-            taskPrinter.printTasksThatAreDone();
+            taskOutput.printTasksThatAreDone();
         }
 
         matcher = patternListTodo.matcher(input);
         if (matcher.matches()) {
-            taskPrinter.printTasksThatAreTodo();
+            taskOutput.printTasksThatAreTodo();
         }
 
         matcher = patternListInProgress.matcher(input);
         if (matcher.matches()) {
-            taskPrinter.printTasksThatAreInProgress();
+            taskOutput.printTasksThatAreInProgress();
         }
     }
 

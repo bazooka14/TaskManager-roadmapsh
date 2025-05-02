@@ -7,22 +7,22 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-public class TaskManager {
+public class TaskService {
     private final ObjectMapper mapper;
     private File fileWithTasks;
     private List<Task> tasks;
 
 
-    public TaskManager(File fileWithTasks, List<Task> tasks) {
+    public TaskService(File fileWithTasks, List<Task> tasks) {
         mapper = new ObjectMapper().registerModule(new JavaTimeModule());
         this.fileWithTasks = fileWithTasks;
         this.tasks = tasks;
     }
 
 
-    public void createTask(String taskDescriptiom) {
+    public void createTask(String taskDescription) {
         try {
-            Task task = new Task(taskDescriptiom);
+            Task task = new Task(taskDescription);
             tasks.add(task);
             mapper.writerWithDefaultPrettyPrinter().writeValue(fileWithTasks, tasks);
             System.out.printf("Task added successfully (ID: %d)\n", task.getId());

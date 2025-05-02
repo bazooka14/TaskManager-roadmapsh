@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-public class TaskLoader {
+    public class TaskRepository {
     @Getter
     private File fileWithTasks;
 
@@ -17,7 +17,7 @@ public class TaskLoader {
 
     private ObjectMapper mapper;
 
-    public TaskLoader(String fileName) {
+    public TaskRepository(String fileName) {
         fileWithTasks = new File(fileName);
         mapper = new ObjectMapper().registerModule(new JavaTimeModule());
 

@@ -3,12 +3,12 @@ package org.example;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class TaskPrinter {
+public class TaskOutput {
     private DateTimeFormatter formatter;
     private List<Task> tasks;
 
 
-    public TaskPrinter(List<Task> tasks) {
+    public TaskOutput(List<Task> tasks) {
         formatter = DateTimeFormatter.ofPattern("dd-MM-yy HH:mm");
         this.tasks = tasks;
     }
