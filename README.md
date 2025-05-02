@@ -72,7 +72,7 @@ A simple command-line task tracker built as part of the [roadmap.sh](https://roa
 ## Usage
 
 ### Add a New Task
-```bash
+``
 task-cli add "Buy groceries"
 # Output: Task added successfully (ID: 1)
 ```
@@ -122,8 +122,8 @@ To run the project from source, you'll need to clone the repository and build it
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/task-cli-tracker.git
-   cd task-cli-tracker
+   git clone https://github.com/bazooka14/TaskManager-roadmapsh
+   cd TaskManager-roadmapsh
    ```
 
 2. Build the project using Maven:
